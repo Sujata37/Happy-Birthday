@@ -1,0 +1,223 @@
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #b90935;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- TIMER SCREEN DESIGN --- */
+.timer-stage {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; /* Sits completely on top of everything else */
+}
+
+.timer-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(251, 111, 146, 0.2);
+    text-align: center; max-width: 360px; width: 90%;
+}
+
+.timer-card h2 { color: #fb6f92; font-size: 1.4rem; margin-bottom: 20px; line-height: 1.4; }
+
+.countdown-display { display: flex; justify-content: space-around; margin-bottom: 20px; }
+
+.time-box { display: flex; flex-direction: column; align-items: center; }
+
+.time-box span { font-size: 2.2rem; font-weight: bold; color: #ff477e; }
+
+.time-box label { font-size: 0.8rem; color: #6c757d; margin-top: 5px; font-weight: 500; }
+
+.timer-note { font-style: italic; color: #ff8fab; font-weight: 500; }
+
+        /* --- FLOATING HEARTS BACKGROUND --- */
+        .hearts-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            opacity: 0;
+            left: var(--left-pos);
+            animation: floatUp var(--speed) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-105vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* --- BALLOONS BACKGROUND (STAGE 1 ONLY) --- */
+        .balloons-container {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px; /* Starts completely below the screen edge */
+            font-size: 45px;
+            opacity: 0;
+            left: var(--left-pos);
+            animation: flyUpBalloon var(--speed) linear infinite;
+            animation-delay: var(--delay);
+            filter: hue-rotate(var(--color-shift));
+        }
+
+        @keyframes flyUpBalloon {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-115vh) translateX(30px) rotate(10deg); opacity: 0; }
+        }
+
+        /* --- STAGE 1: THE GIFT BOX INTERFACE --- */
+        .gift-box-stage {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(186, 194, 200, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .gift-wrapper {
+            position: relative;
+            width: 180px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            filter: drop-shadow(0 15px 25px rgba(251, 111, 146, 0.4));
+            z-index: 5;
+        }
+
+        .bow-container {
+            position: absolute;
+            top: -25px; width: 70px; height: 30px;
+            z-index: 3; display: flex; justify-content: space-between;
+        }
+
+        .bow-loop {
+            width: 32px; height: 30px; background: #ff477e;
+            border-radius: 50% 50% 20% 50%; border: 2px solid #ff1456;
+        }
+
+        .bow-loop.right { border-radius: 50% 50% 50% 20%; transform: scaleX(-1); }
+
+        .lid {
+            position: relative;
+            width: 190px; height: 40px;
+            background: linear-gradient(to bottom, #ff7096, #ff5c8a);
+            border-radius: 6px; z-index: 2;
+            box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .box-base {
+            position: relative;
+            width: 170px; height: 140px;
+            background: linear-gradient(135deg, #ffb3c1, #ff8fab);
+            border-radius: 0 0 12px 12px; margin-top: -2px;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .ribbon-vertical {
+            position: absolute; width: 34px; height: 100%;
+            background: linear-gradient(to right, #ff477e, #ff1456);
+            left: 50%; transform: translateX(-50%);
+        }
+
+        .lid .ribbon-vertical { height: 40px; }
+
+        .ribbon-horizontal {
+            position: absolute; width: 100%; height: 28px;
+            background: linear-gradient(to bottom, #ff477e, #ff1456); top: 50px;
+        }
+
+        .gift-label {
+            color: white; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            letter-spacing: 0.5px; 
+            z-index: 4; 
+            background-color: #d30b86;
+            padding: 6px 14px; 
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            margin-top: 250px;
+        }
+
+        /* --- STAGE 2: THE REVEALED BIRTHDAY CARD --- */
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            z-index: 5;
+            
+            /* Crucial: Keeps the card completely hidden and un-rendered until clicked */
+            display: none; 
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-photo {
+            width: 120px; height: 120px;
+            border-radius: 50%; object-fit: cover;
+            display: block; margin: 0 auto 20px;
+            border: 4px solid #ff8fab; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { color: #fb6f92; font-size: 1.8rem; margin-bottom: 15px; }
+        .main-text { color: #6c757d; font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px; }
+        .choice-container { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
+        
+        .btn-choice { 
+            flex: 1; background-color: #ff8fab; color: white; border: none; 
+            padding: 14px 10px; font-weight: bold; border-radius: 12px; cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(255, 143, 171, 0.3);
+        }
+        .btn-choice.alt { background-color: #fb6f92; box-shadow: 0 4px 10px rgba(251, 111, 146, 0.3); }
+        .btn-choice:active { transform: scale(0.95); }
+        
+        .reveal-box { 
+            min-height: 80px; margin-top: 15px; padding: 15px; border-radius: 12px; 
+            background-color: #fff0f3; border: 1px dashed #ffb3c1; display: none; 
+            color: #d90429; font-weight: 500; font-size: 1rem; line-height: 1.4;
+        }
+        .reveal-box.show { display: flex; justify-content: center; align-items: center; }

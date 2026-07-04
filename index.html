@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! ❤️</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <audio id="birthdayMusic" src="birthday.mp3" preload="auto" loop></audio>
+    <div class="hearts-bg" id="heartsContainer"></div>
+
+    <div id="timerScreen" class="timer-stage">
+    <div class="timer-card">
+        <h2>Your Birthday Surprise Unlocks In...</h2>
+        <div class="countdown-display">
+            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Mins</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>Secs</label></div>
+        </div>
+        <p class="timer-note">No peeking early! 😉</p>
+    </div>
+</div>
+
+    <div id="giftBoxContainer" class="gift-box-stage" onclick="openGift()">
+        <div class="balloons-container" id="balloonsContainer"></div>
+
+        <div class="gift-wrapper">
+            <div class="bow-container">
+                <div class="bow-loop left"></div>
+                <div class="bow-loop right"></div>
+            </div>
+            <div class="lid">
+                <div class="ribbon-vertical"></div>
+            </div>
+            <div class="box-base">
+                <div class="ribbon-vertical"></div>
+                <div class="ribbon-horizontal"></div>
+                <span class="gift-label">TAP ME! 🎁</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="birthdayCard" class="card">
+        <img src="photo2.jpeg" class="profile-photo" alt="Birthday Boy">
+        <h1>Happy Birthday Maya! 🎉❤️ </h1>
+        <p class="main-text"> Wishing you a many many happy returns of the day.God bless you and I wish you get the best of everything! </p>
+        
+        <div class="choice-container">
+            <button class="btn-choice alt" onclick="revealMessage(2)"> Tap Here ❤️</button>
+        </div>
+
+        <div id="secretMessage" class="reveal-box"></div>
+    </div>
+
+
+
+</body>
+</html>
